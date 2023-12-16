@@ -7,7 +7,7 @@ st.set_page_config(layout="wide")
 st.title("Main Dashboard Analysis")
 
 # Lê os dados e realiza o tratamento uma vez
-df = pd.read_excel("C:\\Users\\arthu\\Downloads\\Data.xlsx")
+df = pd.read_excel("Data.xlsx")
 
 #1 - data (ano e mês)
 df['month'] = df['expected_arrival_date'].dt.strftime('%m/%Y')
