@@ -9,16 +9,14 @@ st.title("Main Dashboard Analysis")
 # Lê os dados e realiza o tratamento uma vez
 df = pd.read_excel("Data.xlsx")
 
-#1 - data (ano e mês)
-df['month'] = df['expected_arrival_date'].dt.strftime('%m/%Y')
 
-sorted_months = sorted(df['month'].unique())
-# Barra lateral para filtros
-selected_month = st.sidebar.selectbox('Select the month', sorted_months)
 
 # Sidebar filters
 with st.sidebar:
-    selected_month = st.selectbox('Select the month', df['month'].unique())
+    # Ordenar os meses na barra lateral
+    sorted_months = sorted(df['month'].unique())
+    selected_month = st.selectbox('Select the month', sorted_months)
+    
     selected_centers = st.multiselect('Select the distribution center', df['distribution_center'].unique())
     selected_country = st.selectbox('Select the Country', df['country'].unique())
     selected_order_type = st.selectbox('Select the Order type', df['order_type'].unique())
@@ -32,6 +30,13 @@ filtered_df = df[
     (df['order_type'] == selected_order_type) &
     (df['product'] == selected_product)
 ]
+
+#1 - data (ano e mês)
+df['month'] = df['expected_arrival_date'].dt.strftime('%m/%Y')
+
+sorted_months = sorted(df['month'].unique())
+# Barra lateral para filtros
+selected_month = st.sidebar.selectbox('Select the month', sorted_months)
 
 # Gráficos
 graph_1 = px.bar(df, x='month', y='currency_conversion_rate_to_eur', color='order_type')
